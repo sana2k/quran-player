@@ -1,5 +1,7 @@
 # Quran Player
 
+[Quran Player with Urdu Translation](https://talha2k.com/projects/quran-player/)
+
 A modern Quran Player web application built with **React** and **Next.js**. This app allows users to listen to Quranic surahs with features like progress tracking, volume control, and a beautiful user interface.
 
 ## Features
