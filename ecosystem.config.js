@@ -7,6 +7,7 @@ module.exports = {
             env: {
                 NODE_ENV: "production",
                 PORT: 3000,
+                BASE_PATH: "/projects/quran-player",
             },
         },
     ],
