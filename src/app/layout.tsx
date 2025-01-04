@@ -3,6 +3,8 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import GoogleAnalytics from './GoogleAnalytics'
 
+const basePath = process.env.NEXT_PUBLIC_BASE_PATH || '';
+
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
@@ -17,8 +19,8 @@ export const metadata: Metadata = {
   title: "Quran Player with Urdu Translation",
   description: "Listen to Quran recitations with Urdu Translation",
   icons: {
-    icon: '/assets/favicon.ico',
-    apple: '/assets/logo-blank.png',
+    icon: '${basePath}/assets/favicon.ico',
+    apple: '${basePath}/assets/logo-blank.png',
   },
 };
 

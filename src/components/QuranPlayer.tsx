@@ -151,7 +151,8 @@ const QuranPlayer = () => {
   useEffect(() => {
   if (audioRef.current) {
     const surahNumber = surahs[currentSurah].number.toString().padStart(3, '0');
-    audioRef.current.src = `/audio/${surahNumber}.mp3`;
+    const basePath = process.env.NEXT_PUBLIC_BASE_PATH || '';
+    audioRef.current.src = `${basePath}/audio/${surahNumber}.mp3`;
     audioRef.current.load();
 
     if (isPlaying) {

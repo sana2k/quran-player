@@ -10,6 +10,9 @@ const nextConfig: NextConfig = {
   images: {
     path: '/projects/quran-player/_next/image'
   },
+  publicRuntimeConfig: {
+    basePath: '/projects/quran-player',
+  },
   trailingSlash: true,
 };
 
