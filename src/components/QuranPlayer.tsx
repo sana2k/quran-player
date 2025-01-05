@@ -19,6 +19,7 @@ import {
   Volume2,
   VolumeX,
 } from 'lucide-react';
+import { trackEvent } from "@/lib/analytics";
 
 // Surah data
 const surahs = [
@@ -171,8 +172,18 @@ const QuranPlayer = () => {
   if (!audioRef.current) return; // Null check
   if (isPlaying) {
     audioRef.current.pause();
+    trackEvent({
+        action: "pause_audio",
+        category: "Audio",
+        label: surahs[currentSurah].name,
+      });
   } else {
     audioRef.current.play();
+    trackEvent({
+        action: "play_audio",
+        category: "Audio",
+        label: surahs[currentSurah].name,
+      });
   }
   setIsPlaying(!isPlaying);
 };
@@ -185,6 +196,11 @@ const handleNext = () => {
       audioRef.current.pause();
     }
     setCurrentSurah((prev) => prev + 1);
+    trackEvent({
+        action: "next_surah",
+        category: "Navigation",
+        label: surahs[currentSurah + 1].name,
+      });
   }
 };
 
@@ -196,6 +212,11 @@ const handlePrevious = () => {
       audioRef.current.pause();
     }
     setCurrentSurah((prev) => prev - 1);
+    trackEvent({
+        action: "previous_surah",
+        category: "Navigation",
+        label: surahs[currentSurah - 1].name,
+      });
   }
 };
 
@@ -214,6 +235,12 @@ const handlePrevious = () => {
   const [time] = value;
   audioRef.current.currentTime = time;
   setCurrentTime(time);
+  trackEvent({
+      action: "seek_audio",
+      category: "Audio",
+      label: surahs[currentSurah].name,
+      value: time,
+    });
 };
 
 const handleVolumeChange = (value: [any]) => {
@@ -221,12 +248,23 @@ const handleVolumeChange = (value: [any]) => {
   const [newVolume] = value;
   setVolume(newVolume);
   audioRef.current.volume = newVolume / 100;
+  trackEvent({
+      action: "volume_change",
+      category: "Audio",
+      label: surahs[currentSurah].name,
+      value: newVolume,
+    });
 };
 
   const toggleMute = () => {
     if (!audioRef.current) return; // Null check
     audioRef.current.muted = !isMuted;
     setIsMuted(!isMuted);
+    trackEvent({
+      action: isMuted ? "unmute_audio" : "mute_audio",
+      category: "Audio",
+      label: surahs[currentSurah].name,
+    });
   };
 
   const formatTime = (time: number) => {
@@ -253,6 +291,11 @@ const handleVolumeChange = (value: [any]) => {
               audioRef.current.pause();
             }
             setCurrentSurah(Number(value));
+            trackEvent({
+              action: "select_surah",
+              category: "Navigation",
+              label: surahs[Number(value)].name,
+            });
           }}
         >
           <SelectTrigger className="w-full">
