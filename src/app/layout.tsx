@@ -29,6 +29,7 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  console.log("GA Tracking ID:", process.env.NEXT_PUBLIC_GA_ID);
   return (
     <html lang="en">
       <body
